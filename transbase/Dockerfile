@@ -2,11 +2,14 @@
 # but we require gblic for transbase
 FROM frolvlad/alpine-glibc:latest
 
-LABEL Daniel Loibl<daniel.loibl@gmail.com>
-
 # change this during build with --build-arg TRANSBASE_DIST=value
-ARG TRANSBASE_DIST=transbase-8_1_1_81-centos-7-x86_64.tar.Z
-ARG DOWNLOAD_URL=https://www.transaction.de/downloads/transbase_trial_version/tb8_1_1/linux-x86_64/builds/$TRANSBASE_DIST
+ARG VERSION=8_1_1
+ARG BUILD=81
+ARG TRANSBASE_DIST=transbase-${VERSION}_${BUILD}-centos-7-x86_64.tar.Z
+ARG DOWNLOAD_URL=https://www.transaction.de/downloads/transbase_trial_version/tb${VERSION}/linux-x86_64/builds/${TRANSBASE_DIST}
+
+LABEL transbase=${VERSION}
+LABEL maintainer=Loibl<loibl@transaction.de>
 
 # common sanity
 RUN apk update && apk add --no-cache sudo bash
