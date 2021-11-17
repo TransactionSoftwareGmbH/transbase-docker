@@ -1,25 +1,79 @@
 # Transbase Docker
 
-All Transbase Docker images are based on a minimal linux distribution (alpine with glibc) (~6.6MB).
+Transbase Docker images  
+based on Alpin Linux (Version 3.14.2) - a lightweight Linux distribution:  
+  https://www.alpinelinux.org  
+and Transbase Evaluation (Version 8.1.1):
+  https://www.transaction.de
 
-## Setup and Build
 
-Install docker
-Windows: https://docs.docker.com/docker-for-windows/install/
-Mac: https://docs.docker.com/docker-for-mac/install/
-Linux: https://docs.docker.com/install/linux/docker-ce/ubuntu/
+## Setup 
 
-Build a new tagged image
-`docker build . -t transbase`
+Install Docker on your host: 
+* Windows: https://hub.docker.com/editions/community/docker-ce-desktop-windows
+* Mac: https://hub.docker.com/editions/community/docker-ce-desktop-mac
+* Linux, e.g. Ubuntu: https://hub.docker.com/editions/community/docker-ce-server-ubuntu
 
-To use transbase docker images you need to copy a valid license tblic.ini to /transbase,
-either by mounting a volume or using docker cp command.
 
-To run the image (transbase service will be exposed at port 2024)
-`docker run -it transbase`
+## Clone
 
-## Images
+Clone transbase-docker / branch develop  
+from GitHub repository TransactionSoftwareGmbH:  
+`git clone https://github.com/TransactionSoftwareGmbH/transbase-docker.git -b develop`
 
-# transbase
+### Images
 
-Base image containing only a transbase default installation
+The transbase-docker repository contains two images  
+* transbase - a basic image containing only a transbase default installation
+* transbase-sample - a basic image containing transbase with a sample database
+
+
+## Build
+
+Build a new tagged image  
+`cd transbase-docker`  
+`cd transbase` // `cd transbase-sample`
+`docker build -t transbase .`  
+
+## Config
+
+To use Transbase Docker images you need a valid Transbase license file.  
+Please request a Transbase Evaluation license file:  
+* https://www.transaction.de/en/transbase/evaluation-version.html  
+
+Copy the received Transbase license file (tblic.ini) into the /transbase directory  
+either by mounting a volume or using docker cp command, e.g.:
+`docker create --name transbase transbase`  
+`docker cp tblic.ini transbase:/transbase`  
+`docker commit transbase transbase`  
+
+
+## Run
+
+Start your Transbase Docker container:  
+`docker run -it transbase`  
+(the transbase service will be exposed at port 2024)  
+
+
+## Use
+
+Now you are in the shell of your Transbase/Docker-Container  
+and you can evaluate Transbase, e.g.:  
+
+`tbi admin tbadmin tbadmin`    // connect to transbase repository databases  
+> create database sample;     // create a sample database  
+> quit  
+  
+`tbi sample tbadmin ""`  
+> create table test ( n integer auto_increment primary key, s varchar(*));  
+> ct  
+> insert into test (s) values ('Hello Transbase');  
+> ct  
+> select * from test;  
+> ct  
+> quit  
+  
+
+
+
+

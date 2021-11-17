@@ -1,5 +1,5 @@
 # start with minimal linux distribution 
-# but we require gblic for transbase
+# but we require glibc for transbase
 FROM frolvlad/alpine-glibc:latest
 
 # change this during build with --build-arg TRANSBASE_DIST=value
