@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  web:
+    image: transbase-python:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src:/app/src
+    links:
+      - transbase.db
+  transbase.db:
+    tty: true
+    image: transbase-sample:latest
+    ports:
+      - "2024:2024"
