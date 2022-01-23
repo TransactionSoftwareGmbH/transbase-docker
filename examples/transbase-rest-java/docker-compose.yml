@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  web:
+    image: jetty:alpine
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./build/libs:/var/lib/jetty/webapps
+    links:
+      - transbase.db
+  transbase.db:
+    image: transbase-sample:latest
+    ports:
+      - "2024:2024"

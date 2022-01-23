@@ -1,0 +1,15 @@
+plugins{
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+   providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+   compile 'com.fasterxml.jackson.core:jackson-databind:2.9.4'
+   // TODO: replace once jdbc driver is in maven central...
+   compile files('libs/tbjdbc.jar')
+}
+
