@@ -9,7 +9,7 @@
 
 # Supported tags and respective `Dockerfile` links
 
--	[`8.3.1`, `latest`](https://github.com/TransactionSoftwareGmbH/transbase-docker/transbase/Dockerfile)
+-	[`8.3.1`, `latest`](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/master/transbase/Dockerfile)
 
 # Quick reference (cont.)
 
@@ -20,7 +20,7 @@
 	[`amd64`](https://hub.docker.com/r/amd64/transbase/)
 
 -	**Source of this description**:  
-	[https://github.com/TransactionSoftwareGmbH/transbase-docker/transbase](https://github.com/TransactionSoftwareGmbH/transbase-docker/transbase)
+	[https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/master/transbase](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/master/transbase)
 
 # What is Transbase?
 

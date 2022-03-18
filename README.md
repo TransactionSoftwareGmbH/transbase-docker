@@ -42,4 +42,4 @@ The following build-time arguments are available at the moment:
 
 ## Run the image as a container
 
-For running the image please have a look at `transbase/README.md`.
+For running the image please have a look at [README.md](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/master/transbase).
