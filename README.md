@@ -21,23 +21,20 @@ Start the Docker Desktop App resp. service/daemon
 ## Clone Repository
 
 Clone the transbase-docker repository (branch: develop)  
-from the GitHub [TransactionSoftwareGmbH](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/develop):  
+from GitHub [TransactionSoftwareGmbH](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/develop):  
 ```
 git clone https://github.com/TransactionSoftwareGmbH/transbase-docker.git -b develop transbase-docker_dev
 ``` 
 
-### Images
-
-The transbase-docker repository contains two images  
-* transbase - basic image,  contains a transbase default installation
-* transbase-sample - basic image, contains transbase installation with a sample database
-
 
 ## Build Image
 
-Build a new tagged image  
+Change into your docker directory  
 ```
 cd transbase-docker_dev/transbase  
+```
+and build a new tagged image  
+```
 docker build -t transbase .
 ```  
 
@@ -45,8 +42,8 @@ docker build -t transbase .
 ## Set Environment
 
 To use Transbase Docker images you need a valid Transbase license file.  
-Please request a  
-* [Transbase Evaluation License](https://www.transaction.de/en/transbase/evaluation-version.html){target="blnak"}
+Please request   
+* [Transbase Evaluation License](https://www.transaction.de/en/transbase/evaluation-version.html)
 
 Copy the received Transbase license file (`tblic.ini`) into the /transbase directory  
 either by mounting a volume or using docker cp command, e.g.:  
