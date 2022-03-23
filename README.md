@@ -1,19 +1,19 @@
 # Transbase Docker
 
 Transbase Docker image - based on:
-* [Alpine Linux](https://www.alpinelinux.org){target="_blank"} -
+* [Alpine Linux](https://www.alpinelinux.org) -
 an independent, non-commercial, general purpose Linux distribution designed for power users who appreciate security, simplicity and resource efficiency 
 and 
-* [Transbase](https://www.transaction.de/en/products/transbase){target="_blank"} -
-a relational SQL database system, developed as core product by  [Transaction Software GmbH](https://www.transaction.de/en/index.html){target="_blank"}
+* [Transbase](https://www.transaction.de/en/products/transbase) -
+a relational SQL database system, developed as core product by  [Transaction Software GmbH](https://www.transaction.de/en/index.html)
 
 
 ## Prerequesites
 
 Install Docker on your host: 
-* [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows){target="_blank"}
-* [Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac){target="_blank"}
-* [Docker Engine for Linux, e.g. Ubuntu](https://hub.docker.com/editions/community/docker-ce-server-ubuntu){target="_blank"}
+* [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+* [Docker Desktop for Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
+* [Docker Engine for Linux, e.g. Ubuntu](https://hub.docker.com/editions/community/docker-ce-server-ubuntu)
   (or use the package manager of your system, i.e. yum, apt, ...)
 
 Start the Docker Desktop App resp. service/daemon
@@ -21,7 +21,7 @@ Start the Docker Desktop App resp. service/daemon
 ## Clone Repository
 
 Clone the transbase-docker repository (branch: develop)  
-from the GitHub [TransactionSoftwareGmbH](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/develop){target="_blank"}:  
+from the GitHub [TransactionSoftwareGmbH](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/develop):  
 ```
 git clone https://github.com/TransactionSoftwareGmbH/transbase-docker.git -b develop transbase-docker_dev
 ``` 
