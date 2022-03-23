@@ -1,4 +1,5 @@
 build
 Makefile
-*.log
+**/*.log
+**/*.bak
 tblic.ini

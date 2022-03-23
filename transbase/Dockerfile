@@ -1,36 +1,46 @@
+# version
+ARG ALPINE_VERSION="3.15"
+
 # start with minimal linux distribution 
-# but we require glibc for transbase
-FROM frolvlad/alpine-glibc:latest
+FROM alpine:${ALPINE_VERSION}
 
-# change this during build with --build-arg TRANSBASE_DIST=value
-ARG VERSION=8_1_1
-ARG BUILD=81
-ARG TRANSBASE_DIST=transbase-${VERSION}_${BUILD}-centos-7-x86_64.tar.Z
-ARG DOWNLOAD_URL=https://www.transaction.de/downloads/transbase_trial_version/tb${VERSION}/linux-x86_64/builds/${TRANSBASE_DIST}
+# transfer args
+ARG ALPINE_VERSION
 
-LABEL transbase=${VERSION}
+# change this during build with --build-arg <KEY>=<value>
+ARG TRANSBASE_VERSION="8.3.1"
+ARG ARCHITECTURE="x64"
+ARG TRANSBASE_DISTRIBUTION=transbase-${TRANSBASE_VERSION}_alpine-${ALPINE_VERSION}_${ARCHITECTURE}.tar.Z
+ARG TRANSBASE_DOWNLOAD=https://www.transaction.de/downloads/transbase/${TRANSBASE_VERSION}/alpine/${ALPINE_VERSION}/${ARCHITECTURE}/${TRANSBASE_DISTRIBUTION}
+
+LABEL transbase=${TRANSBASE_VERSION}
 LABEL maintainer=Loibl<loibl@transaction.de>
 
 # common sanity
-RUN apk update && apk add --no-cache sudo bash
-
+#RUN apk update && apk add --no-cache bash
 
 # download and copy transbase to container
-WORKDIR /transbase
-RUN wget $DOWNLOAD_URL && tar -zxvf $TRANSBASE_DIST && rm $TRANSBASE_DIST
+ARG TRANSBASE="/opt/transbase"
 
-# create default database 
-ADD databases.tar.gz /transbase/
+WORKDIR ${TRANSBASE}
+
+ADD databases.tar.Z /tmp
+
+RUN 	wget ${TRANSBASE_DOWNLOAD} \
+	&& 	tar -xzf ${TRANSBASE_DISTRIBUTION} \
+	&&	rm ${TRANSBASE_DISTRIBUTION} \
+	&& 	mv /tmp/databases ${TRANSBASE} \
+	&&  chown -R root:root ${TRANSBASE}
 
 # expose default port 2024 for transbase service
 EXPOSE 2024:2024
 
 # add transbase to path
-ENV PATH /transbase/bin:$PATH
+ENV PATH /opt/transbase/bin:$PATH
 
 # copy license file (uncomment if license file is available and building locally)
 # otherwise license file has to be copied before running the container with docker cp command
-# ADD tblic.ini /transbase/tblic.ini
+# ADD tblic.ini /opt/transbase/tblic.ini
 
 # start transbase service on container start
-CMD transbase start && bash
+CMD transbase start && sh
