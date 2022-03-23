@@ -39,7 +39,7 @@ There are several ways to run Transbase:
 ## Run Transbase service from command line
 
 ```console
-$ docker run -d \
+docker run -d \
     --name my-transbase \
     -p 2024:2024 \
     -e TRANSBASE_PASSWORD=secretpassword \
@@ -57,13 +57,13 @@ COPY --chown=tbadmin:transbase ./tblic.ini .
 Execute the following command to build the Docker image:
 
 ```console
-$ docker build -t transbase-with-license-file .
+docker build -t transbase-with-license-file .
 ```
 
 Then execute the following command to create and start a Transbase Docker container:
 
 ```console
-$ docker run -d \
+docker run -d \
     --name my-transbase \
     -p 2024:2024 \
     -e TRANSBASE_PASSWORD=secretpassword \
@@ -95,7 +95,7 @@ services:
 The `docker exec` command allows you to run commands inside a Docker container. The following command line will start the Transbase command line interface `tbi` inside your Transbase container:
 
 ```
-$ docker exec -it my-transbase tbi
+docker exec -it my-transbase tbi
 
 no database> connect //localhost:2024/admin
 Login: [tbadmin] 
