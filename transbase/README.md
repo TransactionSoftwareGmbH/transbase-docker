@@ -139,7 +139,7 @@ This optional environment variable specifies the path to the SSL certificate. Th
 **Important note:** Transbase tries to verify the `common name` field in the certificate. If you run this image and the common name in the certificate does not match the hostname, then Transbase won't start. The hostname can be set with parameter `--hostname <hostname>`.
 
 ```console
-$ docker run -d \
+docker run -d \
     ...
     -e TRANSBASE_CERTIFICATE_FILE=/transbase/www.my-transbase.com.p12 \
     -e TRANSBASE_CERTIFICATE_PASSWORD=secretcertificatepassword \
@@ -158,7 +158,7 @@ This optional variable can be used to define another location for the database f
 For example:
 
 ```console
-$ docker run -d \
+docker run -d \
     ...
     -e TRANSBASE_DATABASE_HOME=/transbase/dbs
     transbase
@@ -171,7 +171,7 @@ Docker Volumes are used for persisting data outside of Docker containers. By def
 For example:
 
 ```console
-$ docker run -d \
+docker run -d \
     ...
     -v transbase-volume:/transbase/databases \
     transbase
