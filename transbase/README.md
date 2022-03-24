@@ -108,12 +108,12 @@ and calls the Transbase command line interface `tbi`:
 
 ```
 docker exec -it my-transbase bash
-````
-````
+```
+```
 tbi //localhost:2024/admin tbadmin secretpassword
-````
+```
 
-````
+```
 admin-> select 1;
           1 
 
