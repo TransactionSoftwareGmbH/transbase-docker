@@ -5,7 +5,8 @@
 	[Transaction Software GmbH](https://github.com/TransactionSoftwareGmbH/transbase-docker)
 
 -	**Where to get help**:  
-	<support@transaction.de>, or [Stack Overflow](https://stackoverflow.com/search?tab=newest&q=transbase)
+	<support@transaction.de>, or  
+	[Stack Overflow](https://stackoverflow.com/search?tab=newest&q=transbase)
 
 # Supported tags and respective `Dockerfile` links
 
@@ -24,15 +25,21 @@
 
 # What is Transbase?
 
-Transbase is a relational SQL database system. It is designed to deliver maximum performance with minimum resources. Therefore it can be used easily not only on high-end servers, but particularly on low-end platforms like Raspberry Pi. By consequently following accepted standards, Transbase secures your software investments. As a unique selling point, Transbase provides prize-awarded patented technologies that make your applications unique in fuctionality and performance.
+Transbase is a relational SQL database system. It is designed to deliver maximum performance with minimum resources. Therefore it can be used easily not only on high-end servers, but particularly on low-end platforms like Raspberry Pi. By consequently following accepted standards, Transbase secures your software investments. As a unique selling point, Transbase provides prize-awarded patented technologies that make your applications unique in functionality and performance.
 
 > [wikipedia.org/wiki/Transbase](https://en.wikipedia.org/wiki/Transbase)
 
-![logo](https://www.transaction.de/fileadmin/logos/transaction_logo_2x.png)
+![Transaction Software](https://www.transaction.de/fileadmin/logos/transaction_logo_2x.png)
 
 # How to use this image
 
-The Transbase docker image needs a license file to run the service. If you don't have one you can obtain a license file from [Transbase Evaluation Version](https://www.transaction.de/en/transbase/evaluation-version.html) or [Transbase Licensing](https://www.transaction.de/en/products/transbase/licensing.html).
+The Transbase docker image needs a license file to run the service.  
+If you don't have any one you can obtain a license file  
+from [Transbase Evaluation Version](https://www.transaction.de/en/transbase/evaluation-version.html)  
+or [Transbase Licensing](https://www.transaction.de/en/products/transbase/licensing.html).
+
+Please copy your received Transbase license file (`tblic.ini`) 
+into a directory of your host system, e.g. your current working directory. 
 
 There are several ways to run Transbase:
 
@@ -43,21 +50,24 @@ docker run -d \
     --name my-transbase \
     -p 2024:2024 \
     -e TRANSBASE_PASSWORD=secretpassword \
-    -v "$(pwd)"/tblic.ini:/transbase/tblic.ini \
+    -v "`pwd`"/tblic.ini:/transbase/tblic.ini \
     transbase
 ```
 
 ## ... or with a custom `Dockerfile`
+
+Please edit your custom Dockerfile in a new subdirectory,  
+e.g. `transbase-wlic/Dockerfile`
 
 ```dockerfile
 FROM transbase
 COPY --chown=tbadmin:transbase ./tblic.ini .
 ```
 
-Execute the following command to build the Docker image:
+... and execute the following command to build the Docker image:
 
 ```console
-docker build -t transbase-with-license-file .
+docker build -t transbase-wtblic transbase-wtblic/.
 ```
 
 Then execute the following command to create and start a Transbase Docker container:
@@ -67,7 +77,7 @@ docker run -d \
     --name my-transbase \
     -p 2024:2024 \
     -e TRANSBASE_PASSWORD=secretpassword \
-    transbase-with-license-file
+    transbase-wtblic
 ```
 
 ## ... or with `docker-compose` or `docker stack`
@@ -92,15 +102,18 @@ services:
 
 ## Container shell access
 
-The `docker exec` command allows you to run commands inside a Docker container. The following command line will start the Transbase command line interface `tbi` inside your Transbase container:
+The `docker exec` command allows you to run commands inside a Docker container.  
+The following example will start a `bash` inside your Transbase container  
+and calls the Transbase command line interface `tbi`:
 
 ```
-docker exec -it my-transbase tbi
+docker exec -it my-transbase bash
+````
+````
+tbi //localhost:2024/admin tbadmin secretpassword
+````
 
-no database> connect //localhost:2024/admin
-Login: [tbadmin] 
-Password:
-
+````
 admin-> select 1;
           1 
 
