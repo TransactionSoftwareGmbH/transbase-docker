@@ -1,14 +1,15 @@
 # Transbase Docker Image
 
-The Transbase Docker image is based on [Alpine Linux](https://www.alpinelinux.org) and [Transbase](https://www.transaction.de/en/index.html).
+The Transbase Docker image is based on [Alpine Linux](https://www.alpinelinux.org) 
+and [Transbase](https://www.transaction.de/en/products/transbase).
 
 ## What is Transbase?
 
-Transbase is a relational SQL database system. It is designed to deliver maximum performance with minimum resources. Therefore it can be used easily not only on high-end servers, but particularly on low-end platforms like Raspberry Pi. By consequently following accepted standards, Transbase secures your software investments. As a unique selling point, Transbase provides prize-awarded patented technologies that make your applications unique in fuctionality and performance.
+Transbase is a relational SQL database system. It is designed to deliver maximum performance with minimum resources. Therefore it can be used easily not only on high-end servers, but particularly on low-end platforms like Raspberry Pi. By consequently following accepted standards, Transbase secures your software investments. As a unique selling point, Transbase provides prize-awarded patented technologies that make your applications unique in functionality and performance.
 
 > [wikipedia.org/wiki/Transbase](https://en.wikipedia.org/wiki/Transbase)
 
-![logo](https://www.transaction.de/fileadmin/logos/transaction_logo_2x.png)
+![Transaction Software](https://www.transaction.de/fileadmin/logos/transaction_logo_2x.png)
 
 ---
 
