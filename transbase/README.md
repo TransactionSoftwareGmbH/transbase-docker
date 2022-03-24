@@ -57,7 +57,7 @@ docker run -d \
 ## ... or with a custom `Dockerfile`
 
 Please edit your custom Dockerfile in a new subdirectory,  
-e.g. `transbase-wlic/Dockerfile`
+e.g. `transbase-wtblic/Dockerfile`
 
 ```dockerfile
 FROM transbase
