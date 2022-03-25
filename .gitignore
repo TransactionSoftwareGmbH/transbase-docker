@@ -12,3 +12,4 @@ _deps
 **.logs
 **.bak
 **/tblic.ini
+my-dockerfile

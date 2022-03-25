@@ -17,7 +17,8 @@
 -	**Where to file issues**:  
 	[https://github.com/TransactionSoftwareGmbH/transbase-docker/issues](https://github.com/TransactionSoftwareGmbH/transbase-docker/issues)
 
--	**Supported architectures**: ([more info](https://github.com/docker-library/official-images#architectures-other-than-amd64))  
+-	**Supported architectures**: 
+	([more info](https://github.com/docker-library/official-images#architectures-other-than-amd64))  
 	[`amd64`](https://hub.docker.com/r/amd64/transbase/)
 
 -	**Source of this description**:  
@@ -25,7 +26,13 @@
 
 # What is Transbase?
 
-Transbase is a relational SQL database system. It is designed to deliver maximum performance with minimum resources. Therefore it can be used easily not only on high-end servers, but particularly on low-end platforms like Raspberry Pi. By consequently following accepted standards, Transbase secures your software investments. As a unique selling point, Transbase provides prize-awarded patented technologies that make your applications unique in functionality and performance.
+Transbase is a relational SQL database system. 
+It is designed to deliver maximum performance with minimum resources. 
+Therefore it can be used easily not only on high-end servers, 
+but particularly on low-end platforms like Raspberry Pi. By consequently following accepted standards, 
+Transbase secures your software investments. 
+As a unique selling point, Transbase provides prize-awarded patented technologies 
+that make your applications unique in functionality and performance.
 
 > [wikipedia.org/wiki/Transbase](https://en.wikipedia.org/wiki/Transbase)
 
@@ -33,31 +40,33 @@ Transbase is a relational SQL database system. It is designed to deliver maximum
 
 # How to use this image
 
-The Transbase docker image needs a license file to run the service.  
+The Transbase docker image needs a Transbase license file to run the Transbase service.  
 If you don't have any one you can obtain a license file  
 from [Transbase Evaluation Version](https://www.transaction.de/en/transbase/evaluation-version.html)  
 or [Transbase Licensing](https://www.transaction.de/en/products/transbase/licensing.html).
 
 Please copy your received Transbase license file (`tblic.ini`) 
-into a directory of your host system, e.g. your current working directory. 
+into a directory of your host system, e.g. your current working directory
+(usually referenced by the environment variable `${PWD}`). 
 
 There are several ways to run Transbase:
 
-## Run Transbase service from command line
+## Build and run container (starting Transbase service )
 
 ```console
 docker run -d \
     --name my-transbase \
     -p 2024:2024 \
-    -e TRANSBASE_PASSWORD=secretpassword \
-    -v "`pwd`"/tblic.ini:/transbase/tblic.ini \
+    -e TRANSBASE_PASSWORD=S3cr3t.07 \
+    -v ${PWD}/tblic.ini:/transbase/tblic.ini \
     transbase
 ```
 
+*(Note: In a Windows PowerShell you have to substitute '\\' by '`' )*
+
 ## ... or with a custom `Dockerfile`
 
-Please edit your custom Dockerfile in a new subdirectory,  
-e.g. `transbase-wtblic/Dockerfile`
+Please edit your custom Dockerfile, e.g. `my-dockerfile`
 
 ```dockerfile
 FROM transbase
@@ -67,7 +76,7 @@ COPY --chown=tbadmin:transbase ./tblic.ini .
 ... and execute the following command to build the Docker image:
 
 ```console
-docker build -t transbase-wtblic transbase-wtblic/.
+docker build -t my-transbase -f my-dockerfile .
 ```
 
 Then execute the following command to create and start a Transbase Docker container:
@@ -76,8 +85,8 @@ Then execute the following command to create and start a Transbase Docker contai
 docker run -d \
     --name my-transbase \
     -p 2024:2024 \
-    -e TRANSBASE_PASSWORD=secretpassword \
-    transbase-wtblic
+    -e TRANSBASE_PASSWORD=S3cr3t.07 \
+    my-transbase
 ```
 
 ## ... or with `docker-compose` or `docker stack`
@@ -93,36 +102,36 @@ services:
     ports:
       - 2024:2024
     environment:
-      TRANSBASE_PASSWORD: secretpassword
+      TRANSBASE_PASSWORD: S3cr3t.07
       TRANSBASE_LICENSE_FILE: /run/secrets/tblic.ini
     secrets:
       - tblic.ini
     ...
 ```
 
-## Container shell access
+## Execute commands inside Container
 
 The `docker exec` command allows you to run commands inside a Docker container.  
-The following example will start a `bash` inside your Transbase container  
+The following example will start a `command shell` inside your Transbase container  
 and calls the Transbase command line interface `tbi`:
 
 ```
-docker exec -it my-transbase bash
-```
-```
-tbi //localhost:2024/admin tbadmin secretpassword
+docker exec -it my-transbase tbi -e "select 1" //localhost:2024/admin tbadmin S3cr3t.07
 ```
 
+*Output*
 ```
-admin-> select 1;
-          1 
-
-          1 
-
-1 tuple evaluated
-Elapsed time: 0.001 sec.
-
-admin-> quit
+!!!  
+!!! Warning: communictaion is NOT encrypted.  
+!!!          Passwords will be transfered with WEAK encryption.  
+!!!          Do not continue if communication is not trusted.  
+!!!  
+         1  
+ 
+         1  
+ 
+1 tuple evaluated  
+Elapsed time: 0.001 sec.  
 ```
 
 ## Environment Variables
