@@ -31,7 +31,7 @@ RUN apk update && \
     update-ca-certificates && \
 # create user "tbadmin:transbase"
     addgroup -S -g 1000 transbase && \
-    adduser -S -u 1000 -D -s /bin/bash -G transbase -H -h "${TRANSBASE}" tbadmin && \
+    adduser -S -u 1000 -D -s /bin/sh -G transbase -H -h "${TRANSBASE}" tbadmin && \
     mkdir "${TRANSBASE}" && \
     chown tbadmin:transbase "${TRANSBASE}"
 
