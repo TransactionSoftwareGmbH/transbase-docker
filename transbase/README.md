@@ -58,7 +58,7 @@ docker run -d \
     --name my-transbase \
     -p 2024:2024 \
     -e TRANSBASE_PASSWORD=S3cr3t.07 \
-    -v ${PWD}/tblic.ini:/transbase/tblic.ini \
+    -v "${PWD}/tblic.ini:/transbase/tblic.ini" \
     transbase
 ```
 
