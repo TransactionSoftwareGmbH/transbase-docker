@@ -29,7 +29,6 @@ create_configuration_file() {
     echo "TRANSBASE_RW=${TRANSBASE}" >> "${transbase_ini}"
     echo "DATABASE_HOME=${TRANSBASE_DATABASE_HOME}" >> "${transbase_ini}"
     echo "TRANSBASE_PORT=${TRANSBASE_PORT}" >> "${transbase_ini}"
-    echo "JRE_HOME=${JAVA_HOME}" >> "${transbase_ini}"
     if [ ! -z "${TRANSBASE_LICENSE_FILE}" ]; then
         echo "LICENSE=${TRANSBASE_LICENSE_FILE}" >> "${transbase_ini}"
     fi

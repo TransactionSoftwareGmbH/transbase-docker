@@ -19,7 +19,6 @@ RUN apk update && \
     apk upgrade && \
     apk add --no-cache \
     bash \
-    openjdk10 \
     musl-locales \
     musl-locales-lang \
     ca-certificates \
@@ -31,8 +30,6 @@ ENV TRANSBASE /transbase
 ENV TRANSBASE_DATABASE_HOME "${TRANSBASE}/databases"
 ENV TRANSBASE_PORT 2024
 ENV LANG C.UTF-8
-ENV JAVA_HOME /usr/lib/jvm/java-10-openjdk
-ENV LD_LIBRARY_PATH "${LD_LIBRARY_PATH}:${JAVA_HOME}/lib/server"
 ENV PATH "${PATH}:${TRANSBASE}/bin"
 
 # create user "tbadmin:transbase"
@@ -51,7 +48,6 @@ RUN wget ${TRANSBASE_URL} && \
     ./bin/transbase \
     ./bin/tbi \
     ./bin/libtci.so \
-    ./bin/tbjdbc.jar \
     ./docs/thirdparty.txt \
     ./docs/eula_en.txt \
     && \
