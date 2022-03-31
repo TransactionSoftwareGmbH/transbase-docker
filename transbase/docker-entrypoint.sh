@@ -1,21 +1,23 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # usage: append_password_parameter "PARAM_NAME"
 # appends parameter ${"PARAM_NAME"} or ${"PARAM_NAME"_FILE} to ${transbase_cmd}
 append_password_parameter() {
-    local var_text="${1}"
-    local var_file="${var_text}_FILE"
+    local var_text_name="${1}"
+    local var_file_name="${1}_FILE"
+    eval var_text=\$${var_text_name}
+    eval var_file=\$${var_file_name}
 
-    if { [ -z "${!var_text}" ] && [ -z "${!var_file}" ]; } || { [ ! -z "${!var_text}" ] && [ ! -z "${!var_file}" ]; } then
-        echo "You need to specify either ${var_text} or ${var_file}."
+    if { [ -z "${var_text}" ] && [ -z "${var_file}" ]; }  || { [ ! -z "${var_text}" ] && [ ! -z "${var_file}" ]; } then
+        echo "You need to specify either ${var_text_name} or ${var_file_name}."
         exit 1
     fi
-    if [ ! -z "${!var_text}" ]; then
-        local param_text="--`echo ${var_text#*_} | awk '{print tolower($0)}' | sed 's/_/-/g'`"
-        transbase_cmd="${transbase_cmd} ${param_text}=${!var_text}"
+    if [ ! -z "${var_text}" ]; then
+        local param_text_name="--`echo ${var_text_name#*_} | awk '{print tolower($0)}' | sed 's/_/-/g'`"
+        transbase_cmd="${transbase_cmd} ${param_text_name}=${var_text}"
     else
-        local param_file="--`echo ${var_text#*_} | awk '{print tolower($0)}' | sed 's/_/-/g'`-file"
-        transbase_cmd="${transbase_cmd} ${param_file}=${!var_file}"
+        local param_file_name="--`echo ${var_text_name#*_} | awk '{print tolower($0)}' | sed 's/_/-/g'`-file"
+        transbase_cmd="${transbase_cmd} ${param_file_name}=${var_file}"
     fi
 }
 

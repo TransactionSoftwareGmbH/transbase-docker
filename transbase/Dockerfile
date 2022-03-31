@@ -18,7 +18,6 @@ ARG TRANSBASE_URL=https://www.transaction.de/downloads/transbase/${TRANSBASE_VER
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache \
-    bash \
     musl-locales \
     musl-locales-lang \
     ca-certificates \
@@ -64,4 +63,4 @@ EXPOSE "${TRANSBASE_PORT}"
 # copy and run entrypoint shell script
 COPY --chown=tbadmin:transbase docker-entrypoint.sh .
 RUN chmod +x docker-entrypoint.sh
-ENTRYPOINT ["/bin/bash", "docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "docker-entrypoint.sh"]
