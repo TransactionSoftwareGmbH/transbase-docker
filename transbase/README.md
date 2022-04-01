@@ -5,8 +5,7 @@
 	[Transaction Software GmbH](https://github.com/TransactionSoftwareGmbH/transbase-docker)
 
 -	**Where to get help**:  
-	<support@transaction.de>, or  
-	[Stack Overflow](https://stackoverflow.com/search?tab=newest&q=transbase)
+	<support@transaction.de>, or [Stack Overflow](https://stackoverflow.com/search?tab=newest&q=transbase)
 
 # Supported tags and respective `Dockerfile` links
 
@@ -40,24 +39,24 @@ that make your applications unique in functionality and performance.
 
 # How to use this image
 
-The Transbase docker image needs a Transbase license file to run the Transbase service.  
-If you don't have any one you can obtain a license file  
-from [Transbase Evaluation Version](https://www.transaction.de/en/transbase/evaluation-version.html)  
+The Transbase docker image needs a Transbase license file to run the Transbase service. 
+If you don't have any one you can obtain a license file 
+from [Transbase Evaluation Version](https://www.transaction.de/en/transbase/evaluation-version.html) 
 or [Transbase Licensing](https://www.transaction.de/en/products/transbase/licensing.html).
 
 Please copy your received Transbase license file (`tblic.ini`) 
-into a directory of your host system, e.g. your current working directory
-(usually referenced by the environment variable `${PWD}`). 
+into a directory of your host system, e.g. your current working directory 
+(usually referenced by the environment variable `${PWD}`).
 
 There are several ways to run Transbase:
 
-## Build and run container (starting Transbase service )
+## Start a Transbase instance
 
 ```console
 docker run -d \
     --name my-transbase \
     -p 2024:2024 \
-    -e TRANSBASE_PASSWORD=S3cr3t.07 \
+    -e TRANSBASE_PASSWORD=my-secret-password \
     -v "${PWD}/tblic.ini:/transbase/tblic.ini" \
     transbase
 ```
@@ -79,13 +78,13 @@ COPY --chown=tbadmin:transbase ./tblic.ini .
 docker build -t my-transbase -f my-dockerfile .
 ```
 
-Then execute the following command to create and start a Transbase Docker container:
+Then execute the following command to start the Transbase service:
 
 ```console
 docker run -d \
     --name my-transbase \
     -p 2024:2024 \
-    -e TRANSBASE_PASSWORD=S3cr3t.07 \
+    -e TRANSBASE_PASSWORD=my-secret-password \
     my-transbase
 ```
 
@@ -102,36 +101,39 @@ services:
     ports:
       - 2024:2024
     environment:
-      TRANSBASE_PASSWORD: S3cr3t.07
+      TRANSBASE_PASSWORD: my-secret-password
       TRANSBASE_LICENSE_FILE: /run/secrets/tblic.ini
     secrets:
       - tblic.ini
     ...
 ```
 
-## Execute commands inside Container
+## Execute commands inside a running container
 
-The `docker exec` command allows you to run commands inside a Docker container.  
-The following example will start a `command shell` inside your Transbase container  
+The `docker exec` command allows you to run commands inside a Docker container. 
+The following example will start a `command shell` inside your Transbase container 
 and calls the Transbase command line interface `tbi`:
 
-```
-docker exec -it my-transbase tbi -e "select 1" //localhost:2024/admin tbadmin S3cr3t.07
+```console
+docker exec -it my-transbase tbi -e "select 1" //localhost:2024/admin tbadmin my-secret-password
 ```
 
 *Output*
 ```
-!!!  
-!!! Warning: communictaion is NOT encrypted.  
-!!!          Passwords will be transfered with WEAK encryption.  
-!!!          Do not continue if communication is not trusted.  
-!!!  
          1  
  
          1  
  
 1 tuple evaluated  
 Elapsed time: 0.001 sec.  
+```
+
+## Viewing Transbase logs
+
+The Transbase syslog is available through Docker's container log:
+
+```console
+docker logs my-transbase
 ```
 
 ## Environment Variables
@@ -161,12 +163,11 @@ This optional environment variable specifies the path to the SSL certificate. Th
 **Important note:** Transbase tries to verify the `common name` field in the certificate. If you run this image and the common name in the certificate does not match the hostname, then Transbase won't start. The hostname can be set with parameter `--hostname <hostname>`.
 
 ```console
-docker run -d \
-    ...
+docker run \
     -e TRANSBASE_CERTIFICATE_FILE=/transbase/www.my-transbase.com.p12 \
     -e TRANSBASE_CERTIFICATE_PASSWORD=secretcertificatepassword \
     --hostname www.my-transbase.com \
-    transbase
+    ...
 ```
 
 ### `TRANSBASE_CERTIFICATE_PASSWORD`, `TRANSBASE_CERTIFICATE_PASSWORD_FILE`
@@ -180,10 +181,9 @@ This optional variable can be used to define another location for the database f
 For example:
 
 ```console
-docker run -d \
+docker run \
+    -e TRANSBASE_DATABASE_HOME=/transbase/dbs \
     ...
-    -e TRANSBASE_DATABASE_HOME=/transbase/dbs
-    transbase
 ```
 
 ## Docker Volumes
@@ -193,10 +193,9 @@ Docker Volumes are used for persisting data outside of Docker containers. By def
 For example:
 
 ```console
-docker run -d \
+docker run \
+    -v my-volume:/transbase/databases \
     ...
-    -v transbase-volume:/transbase/databases \
-    transbase
 ```
 
 ## Docker Secrets
