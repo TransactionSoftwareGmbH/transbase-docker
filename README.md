@@ -48,7 +48,7 @@ The following build-time arguments are available at the moment:
 * ALPINE_VERSION: the version of the Alpine Linux base image, e.g. "3.15"
 * TRANSBASE_VERSION: the version of Transbase, e.g. "8.3.1"
 
-## Build an run the container
+## Build and run the container
 
 For building and running a container based on the Transbase Docker image 
 please have a look at 
