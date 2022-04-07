@@ -116,16 +116,33 @@ and calls the Transbase command line interface `tbi`:
 
 ```console
 docker exec -it my-transbase tbi -e "select 1" //localhost:2024/admin tbadmin my-secret-password
-```
 
-*Output*
-```
          1  
  
          1  
  
 1 tuple evaluated  
 Elapsed time: 0.001 sec.  
+```
+
+## ... or interactively
+
+``` console
+docker exec -it my-transbase tbi
+
+no database> connect //localhost:2024/admin
+Login: [tbadmin] tbadmin
+Password: my-secret-password
+ 
+admin-> select 1;
+         1  
+ 
+         1  
+ 
+1 tuple evaluated  
+Elapsed time: 0.001 sec.  
+
+admin-> quit
 ```
 
 ## Viewing Transbase logs
@@ -165,7 +182,7 @@ This optional environment variable specifies the path to the SSL certificate. Th
 ```console
 docker run \
     -e TRANSBASE_CERTIFICATE_FILE=/transbase/www.my-transbase.com.p12 \
-    -e TRANSBASE_CERTIFICATE_PASSWORD=secretcertificatepassword \
+    -e TRANSBASE_CERTIFICATE_PASSWORD=my-secret-certificate-password \
     --hostname www.my-transbase.com \
     ...
 ```
