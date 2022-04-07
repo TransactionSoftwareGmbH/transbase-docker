@@ -17,6 +17,7 @@ ARG TRANSBASE_URL=https://www.transaction.de/downloads/transbase/${TRANSBASE_VER
 # initialize environment
 ENV TRANSBASE /transbase
 ENV TRANSBASE_DATABASE_HOME "${TRANSBASE}/databases"
+ENV TRANSBASE_SYSLOG "${TRANSBASE}/syslog"
 ENV TRANSBASE_PORT 2024
 ENV LANG C.UTF-8
 ENV PATH "${PATH}:${TRANSBASE}/bin"
@@ -55,9 +56,8 @@ RUN chmod +x docker-entrypoint.sh && \
         ./docs/thirdparty.txt \
         ./docs/eula_en.txt && \
     rm ${TRANSBASE_DISTRIBUTION} && \
-# create directory for database files
-    mkdir -p "${TRANSBASE_DATABASE_HOME}" && \
-    chown -R tbadmin:transbase "${TRANSBASE_DATABASE_HOME}"
+# create directory for database files and syslog
+    mkdir -p "${TRANSBASE_DATABASE_HOME}" "${TRANSBASE_SYSLOG}"
 
 # create docker volume for database files
 VOLUME "${TRANSBASE_DATABASE_HOME}"

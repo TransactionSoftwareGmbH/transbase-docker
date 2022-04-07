@@ -194,7 +194,15 @@ For example:
 
 ```console
 docker run \
-    -v my-volume:/transbase/databases \
+    -v my-databases:/transbase/databases \
+    ...
+```
+
+You can also store the syslog in a separate volume:
+
+```console
+docker run \
+    -v my-syslog:/transbase/syslog \
     ...
 ```
 
