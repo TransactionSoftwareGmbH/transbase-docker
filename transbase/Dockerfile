@@ -22,14 +22,8 @@ ENV TRANSBASE_PORT 2024
 ENV LANG C.UTF-8
 ENV PATH "${PATH}:${TRANSBASE}/bin"
 
-# upgrade linux and install required software
-RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache \
-        musl-locales \
-        musl-locales-lang \
-        ca-certificates && \
-    update-ca-certificates && \
+# install required software
+RUN apk add --update --no-cache musl-locales musl-locales-lang && \
 # create user "tbadmin:transbase"
     addgroup -S -g 1000 transbase && \
     adduser -S -u 1000 -D -s /bin/sh -G transbase -H -h "${TRANSBASE}" tbadmin && \
