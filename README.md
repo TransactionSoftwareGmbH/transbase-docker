@@ -42,11 +42,20 @@ docker build -t transbase transbase/.
 ```
 ... or with custom build-time arguments
 ```
-docker build -t transbase:8.3.1 --build-arg ALPINE_VERSION=3.15 --build-arg TRANSBASE_VERSION=8.3.1 transbase/.
+docker build -t transbase:8.3.1 --build-arg ALPINE_VERSION=3.16 --build-arg TRANSBASE_VERSION=8.3.1 transbase/.
 ```
 The following build-time arguments are available at the moment:
-* ALPINE_VERSION: the version of the Alpine Linux base image, e.g. "3.15"
+* ALPINE_VERSION: the version of the Alpine Linux base image, e.g. "3.16"
 * TRANSBASE_VERSION: the version of Transbase, e.g. "8.3.1"
+
+You can also build a Linux multi-architecture image
+```
+docker buildx build --platform linux/amd64,linux/arm64 -t transbase transbase/.
+```
+The following platforms are supported at the moment:
+* linux/arm64
+* linux/amd64
+* linux/386
 
 ## Build and run the container
 

@@ -1,18 +1,14 @@
 # build arguments
 ARG TRANSBASE_VERSION="8.3.1"
-ARG ALPINE_VERSION="3.15"
+ARG ALPINE_VERSION="3.16"
 
 # base image
-FROM alpine:${ALPINE_VERSION}
+FROM --platform=${BUILDPLATFORM} alpine:${ALPINE_VERSION}
 
 # transfer build arguments
 ARG ALPINE_VERSION
 ARG TRANSBASE_VERSION
-
-# build transbase distribution url
-ARG ARCHITECTURE="x64"
-ARG TRANSBASE_DISTRIBUTION=transbase-${TRANSBASE_VERSION}_alpine-${ALPINE_VERSION}_${ARCHITECTURE}.tar.Z
-ARG TRANSBASE_URL=https://www.transaction.de/downloads/transbase/${TRANSBASE_VERSION}/alpine/${ALPINE_VERSION}/${ARCHITECTURE}/${TRANSBASE_DISTRIBUTION}
+ARG TARGETPLATFORM
 
 # initialize environment
 ENV TRANSBASE /transbase
@@ -42,14 +38,19 @@ COPY --chown=tbadmin:transbase docker-entrypoint.sh .
 # make entrypoint shell script executable
 RUN chmod +x docker-entrypoint.sh && \
 # download and extract transbase binaries
-    wget ${TRANSBASE_URL} && \
-    tar -xzvf ${TRANSBASE_DISTRIBUTION} \
+    case ${TARGETPLATFORM} in \
+        "linux/arm64")  ARCHITECTURE="arm64"  ;; \
+        "linux/amd64")  ARCHITECTURE="x86_64" ;; \
+        "linux/386")    ARCHITECTURE="x86"    ;; \
+    esac && \
+    wget https://www.transaction.de/downloads/transbase/${TRANSBASE_VERSION}/alpine/${ALPINE_VERSION}/${ARCHITECTURE}/transbase.tar.Z && \
+    tar -xzvf transbase.tar.Z \
         ./bin/transbase \
         ./bin/tbi \
         ./bin/libtci.so \
         ./docs/thirdparty.txt \
         ./docs/eula_en.txt && \
-    rm ${TRANSBASE_DISTRIBUTION} && \
+    rm transbase.tar.Z && \
 # create directory for database files and syslog
     mkdir -p "${TRANSBASE_DATABASE_HOME}" "${TRANSBASE_SYSLOG}"
 
