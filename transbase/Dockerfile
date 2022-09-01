@@ -3,7 +3,7 @@ ARG TRANSBASE_VERSION="8.3.1"
 ARG ALPINE_VERSION="3.16"
 
 # base image
-FROM --platform=${BUILDPLATFORM} alpine:${ALPINE_VERSION}
+FROM alpine:${ALPINE_VERSION}
 
 # transfer build arguments
 ARG ALPINE_VERSION
@@ -38,12 +38,7 @@ COPY --chown=tbadmin:transbase docker-entrypoint.sh .
 # make entrypoint shell script executable
 RUN chmod +x docker-entrypoint.sh && \
 # download and extract transbase binaries
-    case ${TARGETPLATFORM} in \
-        "linux/arm64")  ARCHITECTURE="arm64"  ;; \
-        "linux/amd64")  ARCHITECTURE="x86_64" ;; \
-        "linux/386")    ARCHITECTURE="x86"    ;; \
-    esac && \
-    wget https://www.transaction.de/downloads/transbase/${TRANSBASE_VERSION}/alpine/${ALPINE_VERSION}/${ARCHITECTURE}/transbase.tar.Z && \
+    wget https://www.transaction.de/downloads/transbase/${TRANSBASE_VERSION}/alpine/${ALPINE_VERSION}/${TARGETPLATFORM}/transbase.tar.Z && \
     tar -xzvf transbase.tar.Z \
         ./bin/transbase \
         ./bin/tbi \

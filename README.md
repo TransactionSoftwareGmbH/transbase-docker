@@ -48,7 +48,7 @@ The following build-time arguments are available at the moment:
 * ALPINE_VERSION: the version of the Alpine Linux base image, e.g. "3.16"
 * TRANSBASE_VERSION: the version of Transbase, e.g. "8.3.1"
 
-You can also build a Linux multi-architecture image
+You can also build a Linux multi-architecture image with [Buildx](https://docs.docker.com/build/buildx)
 ```
 docker buildx build --platform linux/amd64,linux/arm64 -t transbase transbase/.
 ```
