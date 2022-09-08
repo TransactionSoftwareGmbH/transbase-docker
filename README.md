@@ -47,15 +47,16 @@ docker build -t transbase:8.3.1 --build-arg ALPINE_VERSION=3.16 --build-arg TRAN
 The following build-time arguments are available at the moment:
 * ALPINE_VERSION: the version of the Alpine Linux base image, e.g. "3.16"
 * TRANSBASE_VERSION: the version of Transbase, e.g. "8.3.1"
+* TARGETPLATFORM: platform of the node performing the build, e.g. "linux/amd64"
 
 You can also build a Linux multi-architecture image with [Buildx](https://docs.docker.com/build/buildx)
 ```
 docker buildx build --platform linux/amd64,linux/arm64 -t transbase transbase/.
 ```
+The `--platform` flag automatically sets the `TARGETPLATFORM` variable.
 The following platforms are supported at the moment:
 * linux/arm64
 * linux/amd64
-* linux/386
 
 ## Build and run the container
 
