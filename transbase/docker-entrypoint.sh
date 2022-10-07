@@ -8,7 +8,7 @@ append_password_parameter() {
     eval var_text=\$${var_text_name}
     eval var_file=\$${var_file_name}
 
-    if { [ -z "${var_text}" ] && [ -z "${var_file}" ]; }  || { [ ! -z "${var_text}" ] && [ ! -z "${var_file}" ]; } then
+    if { [ -z "${var_text}" ] && [ -z "${var_file}" ]; }  || { [ ! -z "${var_text}" ] && [ ! -z "${var_file}" ]; }; then
         echo "You need to specify either ${var_text_name} or ${var_file_name}."
         exit 1
     fi
@@ -52,7 +52,7 @@ main() {
     append_password_parameter "TRANSBASE_PASSWORD"
 
     # if ${TRANSBASE_CERTIFICATE_FILE} is set append ${TRANSBASE_CERTIFICATE_PASSWORD} or ${TRANSBASE_CERTIFICATE_PASSWORD_FILE}
-    if [ ! -z "${TRANSBASE_CERTIFICATE_FILE}" ]; then
+    if [ ! -z "${TRANSBASE_CERTIFICATE_FILE}" ] && { [ ! -z "${TRANSBASE_CERTIFICATE_PASSWORD}" ] || [ ! -z "${TRANSBASE_CERTIFICATE_PASSWORD_FILE}" ]; }; then
         append_password_parameter "TRANSBASE_CERTIFICATE_PASSWORD"
     fi
 
