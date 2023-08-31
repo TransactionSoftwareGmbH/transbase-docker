@@ -9,6 +9,7 @@
 
 # Supported tags and respective `Dockerfile` links
 
+-	[`8.4.1`](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/master/transbase/Dockerfile)
 -	[`8.3.1`](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/master/transbase/Dockerfile)
 
 # Quick reference (cont.)
@@ -18,7 +19,7 @@
 
 -	**Supported architectures**: 
 	([more info](https://github.com/docker-library/official-images#architectures-other-than-amd64))  
-	amd64, arm64v8, i386
+	amd64, arm64v8
 
 -	**Source of this description**:  
 	[https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/master/transbase](https://github.com/TransactionSoftwareGmbH/transbase-docker/tree/master/transbase)

@@ -1,5 +1,5 @@
 # build arguments
-ARG TRANSBASE_VERSION="8.3.1"
+ARG TRANSBASE_VERSION="8.4.1"
 ARG ALPINE_VERSION="3.16"
 
 # base image
